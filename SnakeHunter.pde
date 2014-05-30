@@ -1,12 +1,14 @@
 Gun bigGun;
 Snake splitSnake;
-Bullet bigBullet;
-Snake[] splitSnakes;
-Bullet[] shotBullets;
+Arraylist<Snake> splitSnakes;
+ArrayList<Bullet> shotBullets;
 
 void setup(){
   size(500,575);
   background(color(112,78,209));
+  //To be seen if it improves gameplay.
+  //frameRate(90);
+  shotBullets = new ArrayList<Bullet>();
   bigGun = new Gun();
   splitSnake = new Snake();
 }
@@ -14,9 +16,9 @@ void setup(){
 void draw(){
   background(color(112,78,209));
   bigGun.display();
-  if(bigBullet != null){
-    bigBullet.flying();
-    bigBullet.display();
+  for(Bullet b : shotBullets){
+    b.flying();
+    b.dispaly();
   }
 }
 
@@ -77,14 +79,17 @@ class Gun{
      xpos = width - 5;
    } 
  }
+ 
  void moveRight(){
    xpos = xpos + xspeed;
    if(xpos >= width){
      xpos = 5;
    } 
  }
+ 
  void shoot(){
-   bigBullet = new Bullet(xpos, ypos - 15);
+   shotBullets.add(new Bullet(xpos, ypos - 15));
+ }
 }
  
 class Snake{
