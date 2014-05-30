@@ -1,6 +1,8 @@
 Gun bigGun;
 Snake splitSnake;
 Bullet bigBullet;
+Snake[] splitSnakes;
+Bullet[] shotBullets;
 
 void setup(){
   size(500,575);
@@ -58,7 +60,7 @@ class Gun{
  float yspeed;
  Gun(){
    c = color(50);
-   xspeed = 5;
+   xspeed = 10;
    xpos = 5;
    ypos = 560;
  }
@@ -82,8 +84,7 @@ class Gun{
    } 
  }
  void shoot(){
-   bigBullet = new Bullet(xpos, ypos - 25);
- }
+   bigBullet = new Bullet(xpos, ypos - 15);
 }
  
 class Snake{
