@@ -13,13 +13,13 @@ class Bullet {
   Bullet() {
   }
   Bullet(float newXpos, float newYpos) {
-    col = color(162);
+    col = color(62);
     yspeed = 15;
     xpos = newXpos;
     ypos = newYpos;
   } 
   void display() {
-    stroke(145);
+    stroke(255);
     fill(col);
     rectMode(CENTER);
     rect(xpos, ypos, 10, 10);

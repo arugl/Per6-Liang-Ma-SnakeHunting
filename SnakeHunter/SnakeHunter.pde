@@ -17,7 +17,7 @@ void setup() {
 }
 
 void draw() {
-  background(color(112, 78, 209));
+  background(color(193, 171, 82));
   noStroke();
   fill(0);
   rect(250, 537.5, 500, 75);

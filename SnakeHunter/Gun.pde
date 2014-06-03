@@ -11,9 +11,9 @@ class Gun {
     return ypos;
   }
   Gun() {
-    col = color(50);
+    col = color(209);
     xspeed = 15;
-    xpos = 5;
+    xpos = 255;
     ypos = 560;
   }
   void display() {
@@ -38,7 +38,7 @@ class Gun {
   }
   
   void shoot(Bullet bigBullet) {
-    bigBullet = new Bullet(xpos, ypos - 15);
+    bigBullet = new Bullet(xpos, ypos);
   }
   
 }
