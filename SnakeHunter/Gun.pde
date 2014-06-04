@@ -1,44 +1,44 @@
 class Gun {
   color col;
-  float xpos;
-  float ypos;
+  float xcor;
+  float ycor;
   float xspeed;
   float yspeed;
-  float getXpos() {
-    return xpos;
+  float getXcor() {
+    return xcor;
   }
-  float getYpos() {
-    return ypos;
+  float getYcor() {
+    return ycor;
   }
   Gun() {
     col = color(209);
-    xspeed = 15;
-    xpos = 255;
-    ypos = 560;
+    xspeed = 10;
+    xcor = 255;
+    ycor = 560;
   }
   void display() {
     stroke(60);
     fill(col);
     rectMode(CENTER);
-    rect(xpos, ypos, 10, 30);
+    rect(xcor, ycor, 10, 30);
   }
 
   void moveLeft() {
-    xpos = xpos - xspeed;
-    if (xpos < 5) {
-      xpos = width - 5;
+    xcor = xcor - xspeed;
+    if (xcor < 5) {
+      xcor = width - 5;
     }
   }
   
   void moveRight() {
-    xpos = xpos + xspeed;
-    if (xpos >= width) {
-      xpos = 5;
+    xcor = xcor + xspeed;
+    if (xcor >= width) {
+      xcor = 5;
     }
   }
   
-  void shoot(Bullet bigBullet) {
-    bigBullet = new Bullet(xpos, ypos);
-  }
+  /*void shoot(Bullet bigBullet) {
+    bigBullet = new Bullet(xcor, ycor - 100);
+  }*/
   
 }

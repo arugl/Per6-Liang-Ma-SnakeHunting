@@ -3,21 +3,25 @@ class Unit {
   int val;
   float xcor, ycor;
   color col;
-  Unit next;
-
+  
+  Unit() {
+    dir = 2;
+    xcor = 255;
+    ycor = 255;
+    col = color(45, 173, 46);
+  }
 
   Unit(int dir, float xcor, float ycor, Unit next) {
     this.dir = dir;
     this.xcor = xcor;
     this.ycor = ycor;
-    this.next = next;
   }
 
   void display() {
     noStroke();
     fill(color(45, 173, 46));
     rectMode(CENTER);
-    rect(xcor, ycor, 1, 1);
+    rect(xcor, ycor, 10, 10);
   }
 
   void setColor(color col) {
@@ -31,8 +35,14 @@ class Unit {
   int getDir() {
     return dir;
   }
-
-  Unit getNext() {
-    return next;
+  
+  float getXcor(){
+    return xcor;
   }
+  
+  float getYcor(){
+    return ycor;
+  }
+
 }
+

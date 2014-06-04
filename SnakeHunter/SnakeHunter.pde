@@ -13,7 +13,7 @@ void setup() {
   bigGun = new Gun(); //we can add new attributes to the gun later but for now, this is OK
   snakes = new ArrayList<Snake>();
   bullets = new ArrayList<Bullet>();
-  snakes.add(new Snake(5));
+  snakes.add(new Snake());
 }
 
 void draw() {
@@ -24,18 +24,34 @@ void draw() {
   bigGun.display();
   int bSize = bullets.size();
   for (int i = 0; i < bSize; i++) {
-    if (bullets.get(i).getYpos() <= 0) {
+    if (bullets.get(i).getYcor() <= 0) {
       bullets.remove(i);
       bSize = bullets.size();
     }
   }
   for (Bullet b : bullets) {
-    if (b != null) {
-      b.flying();
-      b.display();
-    }
+    b.flying();
+    b.display();
+  }
+  /*
+  for (int i = 0; i < bullets.size(); i++) {
+   b.flying();
+   b.display();
+   for (int x = 0; x < snakes.size(); x++) {
+   for (int y = 0; y < snakes.)) {
+   if (Math.abs(u.getXcor() - bullets[i].getXcor()) <= 5 && u.getYcor() - bullets[i].getYcor() <= 5) {
+   bullets.remove(bullets[i]);
+   s.getUnits().remove(u);
+   }
+   }
+   }
+   }
+   */
+  for (Snake s : snakes) {
+    s.display();
   }
 }
+
 
 void keyPressed() {
   if (key == 'd') {
@@ -46,10 +62,11 @@ void keyPressed() {
     bigGun.display();
   } else if (key == ' ') {
     if (millis() - lastTime >= 450) {
-      Bullet bigBullet = new Bullet(bigGun.getXpos(), bigGun.getYpos() - 15);
+      Bullet bigBullet = new Bullet(bigGun.getXcor(), bigGun.getYcor() - 20);
       bullets.add(bigBullet);
-      bigGun.shoot(bigBullet);
+      //bigGun.shoot(bigBullet);
       lastTime = millis();
     }
   }
 }
+
