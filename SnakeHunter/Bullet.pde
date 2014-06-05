@@ -1,5 +1,6 @@
 class Bullet {
   float xcor, ycor;
+  color backgroundColor = color(122,78,209);
   float spd; //you only need one- vertical
   color col = color(62);
   
@@ -19,6 +20,10 @@ class Bullet {
   }
   
   void flying() {
+    rectMode(CENTER);
+    stroke(backgroundColor);
+    fill(backgroundColor);
+    rect(xcor,ycor,10,10);
     ycor -= spd;
   }
   

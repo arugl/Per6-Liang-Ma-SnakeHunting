@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 int lastTime = 0;
-//color c; each snake has individual color??
+color backgroundColor = color(122,78,209);
 ArrayList<Snake> snakes = new ArrayList<Snake>(); //moved it up here
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 Gun bigGun = new Gun(); 
@@ -9,13 +9,13 @@ Gun bigGun = new Gun();
 void setup() {
   lastTime = millis();
   size(500, 575);
-  background(color(112, 78, 209));
+  background(backgroundColor);
   bigGun = new Gun(); //we can add new attributes to the gun later but for now, this is OK
   snakes.add(new Snake(5));
 }
 
 void draw() {
-  //background(color(193, 171, 82)); //Why change this?
+  
   noStroke();
   fill(0);
   rectMode(CORNERS);
