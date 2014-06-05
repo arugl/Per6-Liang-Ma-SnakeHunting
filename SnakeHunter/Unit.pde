@@ -1,8 +1,9 @@
 class Unit {
   int dir; //1 = north; 2 = east; 3 = south; 4 = west
-  int val;
+  //int val;
   float xcor, ycor;
   color col;
+  color backgroundColor = color(122,78,209);
   Unit prev; //changed from next
   
   Unit(int dir, float xcor, float ycor, color col) {
@@ -11,10 +12,6 @@ class Unit {
     this.ycor = ycor;
     this.col = col; //each snake will have a random color for all of its units
     prev = null;
-    
-    //xcor = 255;
-    //ycor = 255;
-    //col = color(45, 173, 46);
   }
 
   Unit(int dir, float xcor, float ycor, color col, Unit prev) {
@@ -30,6 +27,13 @@ class Unit {
     fill(col);
     rectMode(CENTER);
     rect(xcor, ycor, 10, 10);
+  }
+
+  void die(){
+    rectMode(CENTER);
+    stroke(backgroundColor);
+    fill(backgroundColor);
+    rect(xcor,ycor,10,10);
   }
 
   void setColor(color col) { this.col = col; }

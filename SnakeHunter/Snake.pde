@@ -8,7 +8,7 @@ class Snake {
 
   Snake(int len) { //first-run constructor
    
-    spd = 5;
+    spd = 10;
     units = new ArrayList();
     
     float xcor = height/2;
@@ -68,9 +68,7 @@ class Snake {
     }
   }
   
-  ArrayList<Unit> getUnits(){
-   return units; 
-  }
+  ArrayList<Unit> getUnits(){ return units; }
   
 }
 

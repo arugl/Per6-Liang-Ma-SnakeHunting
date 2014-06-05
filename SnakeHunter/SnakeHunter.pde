@@ -8,10 +8,11 @@ Gun bigGun = new Gun();
 
 void setup() {
   lastTime = millis();
-  size(500, 575);
+  size(500, 610);
   background(backgroundColor);
   bigGun = new Gun(); //we can add new attributes to the gun later but for now, this is OK
   snakes.add(new Snake(5));
+  
 }
 
 void draw() {
@@ -19,10 +20,12 @@ void draw() {
   noStroke();
   fill(0);
   rectMode(CORNERS);
-  rect(0,height-30,width,height); //better than //rect(250, 537.5, 500, 75);
+  rect(0,height-35,width,height);
   
   bigGun.display();
-  
+
+  check();
+
   for (int i=0;i<bullets.size();i++) {
     if(bullets.get(i).getYcor() < 0){
       bullets.remove(i);
@@ -39,6 +42,21 @@ void draw() {
   
 }
 
+void check(){ //checks for collisions
+  for(int i=0;i<snakes.size();i++){
+    for(int j=0;j<snakes.get(i).getUnits().size();j++){
+      for(int k=0;k<bullets.size();k++){
+        if(bullets.get(k).getXcor() == snakes.get(i).getUnits().get(j).getXcor() && bullets.get(k).getYcor() == snakes.get(i).getUnits().get(j).getYcor()){
+          bullets.get(k).die();
+          bullets.remove(k);
+          snakes.get(i).getUnits().get(j).die();
+          snakes.get(i).getUnits().remove(j);
+        }
+      }
+    }
+  }
+}
+    
 
 void keyPressed() {
   if (key == CODED){

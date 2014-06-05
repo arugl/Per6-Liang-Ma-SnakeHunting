@@ -20,11 +20,15 @@ class Bullet {
   }
   
   void flying() {
+    die();
+    ycor -= spd;
+  }
+  
+  void die(){
     rectMode(CENTER);
     stroke(backgroundColor);
     fill(backgroundColor);
     rect(xcor,ycor,10,10);
-    ycor -= spd;
   }
   
   float getXcor() { return xcor; }
