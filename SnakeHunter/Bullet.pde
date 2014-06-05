@@ -1,32 +1,28 @@
 class Bullet {
-  float xcor;
-  float ycor;
-  float xspeed;
-  float yspeed;
-  color col;
+  float xcor, ycor;
+  float spd; //you only need one- vertical
+  color col = color(62);
   
-  Bullet() {
-  }
-  Bullet(float newXcor, float newYcor) {
-    col = color(62);
+  //Bullet() { } //?
+  
+  Bullet(float xcor, float ycor) {
     yspeed = 10;
-    xcor = newXcor;
-    ycor = newYcor;
-  } 
+    this.xcor = xcor;
+    this.ycor = ycor;
+  }
+  
   void display() {
     stroke(255);
     fill(col);
     rectMode(CENTER);
     rect(xcor, ycor, 10, 10);
   }
+  
   void flying() {
-    ycor = ycor - yspeed;
+    ycor -= spd;
   }
   
-  float getXcor() {
-    return xcor;
-  }
-  float getYcor() {
-    return ycor;
-  }
+  float getXcor() { return xcor; }
+  float getYcor() { return ycor; }
+   
 }
