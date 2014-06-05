@@ -6,7 +6,7 @@ class Bullet {
   //Bullet() { } //?
   
   Bullet(float xcor, float ycor) {
-    yspeed = 10;
+    spd = 10;
     this.xcor = xcor;
     this.ycor = ycor;
   }

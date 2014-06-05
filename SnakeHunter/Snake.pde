@@ -5,25 +5,27 @@ class Snake {
   color col;
   float spd;
   ArrayList<Unit> units;
-  //int len //removed- useless, units.size() is linear anyway
 
-  Snake() { //first-run constructor
-    len = 5;
+  Snake(int len) { //first-run constructor
+   
     spd = 5;
     units = new ArrayList();
     
     float xcor = height/2;
     float ycor = width/2;
+    
     Random rand = new Random(255);
     col = color(rand.nextInt(), rand.nextInt(), rand.nextInt());
     
-    units.add(new Unit(2,xcor,ycor,col); //first unit has no next
+    // unit constructor: Unit(int dir, float xcor, float ycor, color col, Unit prev (opt))
+    units.add(new Unit(2,xcor,ycor,col)); //first unit has no prev
     
-    for(int i=1;i<units.size();i++){
+    for(int i=1;i<len;i++){
       xcor += 10;
       ycor += 10;
-      units.add(new Unit(2,xcor,ycor,col,units.get(i=1));
-    }   
+      units.add(new Unit(2,xcor,ycor,col,units.get(i-1)));
+    } 
+  }  
 
   Snake(ArrayList<Unit> units) {
     this.units = units;
@@ -37,22 +39,24 @@ class Snake {
 
  void move(){
    
-   for(int i=units.size()-1;i>=0;i--){
-     units.get(i).setX(units.get(i-1).getX());
-     units.get(i).setY(units.get(i-1).getY());
+   for(int i=units.size();i>0;i--){ //alter pos of all units except head
+     units.get(i).setXcor(units.get(i-1).getXcor());
+     units.get(i).setYcor(units.get(i-1).getYcor());
    }
     
-   int dir = units(0).getDir();
+   int dir = units.get(0).getDir();
+   
    switch(dir){
-     case 1: units(0).setY(units(0).getY() + 10);
-     case 2: units(0).setX(units(0).getX() + 10);
-     case 3: units(0).setY(units(0).getY() - 10);
-     case 4: units(0).setX(units(0).getX() - 10);
+     case 1: units.get(0).setYcor(units.get(0).getYcor() + 10);
+     case 2: units.get(0).setXcor(units.get(0).getXcor() + 10);
+     case 3: units.get(0).setYcor(units.get(0).getYcor() - 10);
+     case 4: units.get(0).setXcor(units.get(0).getXcor() - 10);
    }
    
-   units(0).setX(units(0).getX() % width);
-   units(0).setY(units(0).getY() % height);
-
+   for(int i=0;i<units.size();i++){
+     units.get(i).setXcor(units.get(i).getXcor() % width);
+     units.get(i).setYcor(units.get(i).getYcor() % height);
+   }
  }      
 
   //Snake(int i) { ???

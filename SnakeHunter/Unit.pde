@@ -32,33 +32,18 @@ class Unit {
     rect(xcor, ycor, 10, 10);
   }
 
-  void setColor(color col) {
-    this.col = col;
-  }
-
-  void setDir(int dir) {
-    this.dir = dir;
-  }
+  void setColor(color col) { this.col = col; }
+  void setDir(int dir) { this.dir = dir; }
+  void setPrev(Unit prev){ this.prev = prev; }
   
-  void setPrev(Unit prev){
-    this.prev = prev;
-  }
-
-  int getDir() {
-    return dir;
-  }
+  int getDir() { return dir; }
+  Unit getPrev(){ return prev; }
+    
+  float getXcor(){ return xcor; }
+  float getYcor(){ return ycor; }
   
-  float getXcor(){
-    return xcor;
-  }
-  
-  float getYcor(){
-    return ycor;
-  }
-  
-  Unit getPrev(){
-    return prev;
-  }
+  void setXcor(float xcor){ this.xcor = xcor; }
+  void setYcor(float ycor){ this.ycor = ycor; }  
 
 }
 

@@ -4,14 +4,14 @@ int lastTime = 0;
 //color c; each snake has individual color??
 ArrayList<Snake> snakes = new ArrayList<Snake>(); //moved it up here
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-Gun bigGun = new Gun; 
+Gun bigGun = new Gun(); 
 
 void setup() {
   lastTime = millis();
   size(500, 575);
   background(color(112, 78, 209));
   bigGun = new Gun(); //we can add new attributes to the gun later but for now, this is OK
-  snakes.add(new Snake());
+  snakes.add(new Snake(5));
 }
 
 void draw() {
@@ -28,8 +28,8 @@ void draw() {
       bullets.remove(i);
     }
     else {
-      b.flying();
-      b.display();
+      bullets.get(i).flying();
+      bullets.get(i).display();
     }
   }
  
