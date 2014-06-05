@@ -1,18 +1,19 @@
 import java.util.ArrayList;
 
-int lastTime = 0;
+int bulletTime = 0;
+int moveTime = 0;
 color backgroundColor = color(122,78,209);
 ArrayList<Snake> snakes = new ArrayList<Snake>(); //moved it up here
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 Gun bigGun = new Gun(); 
 
 void setup() {
-  lastTime = millis();
+  bulletTime = millis();
+  moveTime = millis();
   size(500, 610);
   background(backgroundColor);
   bigGun = new Gun(); //we can add new attributes to the gun later but for now, this is OK
   snakes.add(new Snake(5));
-  
 }
 
 void draw() {
@@ -37,8 +38,14 @@ void draw() {
   }
  
   for (Snake s : snakes) {
+    s.move();
     s.display();
   }
+  
+  while(millis() - moveTime < 500){
+  }
+  
+  moveTime = millis();
   
 }
 
@@ -70,10 +77,10 @@ void keyPressed() {
     }
   }
   else if (key == ' ') {
-    if (millis() - lastTime >= 450) {
+    if (millis() - bulletTime >= 450) {
       Bullet bigBullet = new Bullet(bigGun.getXcor(), bigGun.getYcor() - 20);
       bullets.add(bigBullet);
-      lastTime = millis();
+      bulletTime = millis();
     }
   }
 }

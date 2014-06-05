@@ -38,11 +38,13 @@ class Snake {
 
  void move(){
    
-   for(int i=units.size();i>0;i--){ //alter pos of all units except head
+   for(int i=units.size()-1;i>0;i--){ //alter pos of all units except head
+     units.get(i).die();
      units.get(i).setXcor(units.get(i-1).getXcor());
      units.get(i).setYcor(units.get(i-1).getYcor());
    }
-    
+   
+   units.get(0).die();    
    int dir = units.get(0).getDir();
    
    switch(dir){
