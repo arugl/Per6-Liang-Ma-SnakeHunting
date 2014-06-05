@@ -3,23 +3,31 @@ class Unit {
   int val;
   float xcor, ycor;
   color col;
+  Unit prev; //changed from next
   
-  Unit() {
-    dir = 2;
-    xcor = 255;
-    ycor = 255;
-    col = color(45, 173, 46);
-  }
-
-  Unit(int dir, float xcor, float ycor, Unit next) {
+  Unit(int dir, float xcor, float ycor, color col) {
     this.dir = dir;
     this.xcor = xcor;
     this.ycor = ycor;
+    this.col = col; //each snake will have a random color for all of its units
+    prev = null;
+    
+    //xcor = 255;
+    //ycor = 255;
+    //col = color(45, 173, 46);
+  }
+
+  Unit(int dir, float xcor, float ycor, color col, Unit prev) {
+    this.dir = dir;
+    this.xcor = xcor;
+    this.ycor = ycor;
+    this.col = col;
+    this.prev = prev;
   }
 
   void display() {
     noStroke();
-    fill(color(45, 173, 46));
+    fill(col);
     rectMode(CENTER);
     rect(xcor, ycor, 10, 10);
   }
@@ -30,6 +38,10 @@ class Unit {
 
   void setDir(int dir) {
     this.dir = dir;
+  }
+  
+  void setPrev(Unit prev){
+    this.prev = prev;
   }
 
   int getDir() {
@@ -42,6 +54,10 @@ class Unit {
   
   float getYcor(){
     return ycor;
+  }
+  
+  Unit getPrev(){
+    return prev;
   }
 
 }
