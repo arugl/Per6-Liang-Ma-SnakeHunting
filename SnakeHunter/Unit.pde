@@ -26,7 +26,7 @@ class Unit {
   }
 
   void display() {
-    noStroke();
+    stroke(#FFFFFF);
     fill(col);
     rectMode(CENTER);
     rect(xcor, ycor, 10, 10);

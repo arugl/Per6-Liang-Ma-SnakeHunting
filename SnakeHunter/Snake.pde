@@ -14,15 +14,14 @@ class Snake {
     float xcor = height/2;
     float ycor = width/2;
     
-    Random rand = new Random(255);
-    col = color(rand.nextInt(), rand.nextInt(), rand.nextInt());
+    Random rand = new Random();
+    col = color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
     
     // unit constructor: Unit(int dir, float xcor, float ycor, color col, Unit prev (opt))
     units.add(new Unit(2,xcor,ycor,col)); //first unit has no prev
     
     for(int i=1;i<len;i++){
       xcor += 10;
-      ycor += 10;
       units.add(new Unit(2,xcor,ycor,col,units.get(i-1)));
     } 
   }  
