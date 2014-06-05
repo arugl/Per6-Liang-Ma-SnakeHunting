@@ -1,6 +1,6 @@
 Gun bigGun;
 Snake splitSnake;
-Arraylist<Snake> splitSnakes;
+ArrayList<Snake> splitSnakes;
 ArrayList<Bullet> shotBullets;
 
 void setup(){
