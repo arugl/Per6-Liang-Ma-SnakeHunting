@@ -20,16 +20,16 @@ class Gun {
   void moveLeft() {
     die();
     xcor = xcor - xspeed;
-    if (xcor < 0){
-      xcor = width;
+    if (xcor < 5){
+      xcor = width - 5;
     }
   }
   
   void moveRight() {
     die();
     xcor = xcor + xspeed;
-    if (xcor > width) {
-      xcor = 0;
+    if (xcor > width - 5) {
+      xcor = 5;
     }
   }
 

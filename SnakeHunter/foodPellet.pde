@@ -4,10 +4,6 @@ class FoodPellet {
   color backgroundColor = color(122,78,209);
     
   public FoodPellet (int xcor, int ycor){
-    xcor = ((xcor/10) * 10) - 5;
-    if(xcor<0) xcor += width;
-    ycor = ((ycor/10) * 10) - 5;
-    if(ycor<0) ycor += height - 40;
     this.xcor = xcor;
     this.ycor = ycor;
   }

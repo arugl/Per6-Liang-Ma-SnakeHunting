@@ -18,7 +18,7 @@ class Snake {
     col = color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
     
     // unit constructor: Unit(int dir, float xcor, float ycor, color col, Unit prev (opt))
-    units.add(new Unit(2,xcor,ycor,col)); //first unit has no prev
+    units.add(new Unit(2, xcor, ycor, col)); //first unit has no prev
     
     for(int i=1;i<len;i++){
       xcor += 10;
@@ -38,7 +38,7 @@ class Snake {
 
  void move(){
    
-   for(int i=units.size()-1;i>0;i--){ //alter pos of all units except head
+   for(int i = units.size() - 1; i > 0; i--){ //alter pos of all units except head
      units.get(i).die();
      units.get(i).setXcor(units.get(i-1).getXcor());
      units.get(i).setYcor(units.get(i-1).getYcor());

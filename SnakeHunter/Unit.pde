@@ -37,6 +37,7 @@ class Unit {
   }
 
   void setColor(color col) { this.col = col; }
+  
   void setDir(int dir) { this.dir = dir; }
   void setPrev(Unit prev){ this.prev = prev; }
   
