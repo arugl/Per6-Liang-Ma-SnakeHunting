@@ -53,16 +53,12 @@ class Snake {
      case 3: units.get(0).setYcor(units.get(0).getYcor() - 10);
      case 4: units.get(0).setXcor(units.get(0).getXcor() - 10);
    }
-   
+      
    for(int i=0;i<units.size();i++){
      units.get(i).setXcor(units.get(i).getXcor() % width);
      units.get(i).setYcor(units.get(i).getYcor() % height);
    }
  }      
-
-  //Snake(int i) { ???
-  //  this(new ArrayList<Unit>());
-  //}
 
   void display() {
     for (Unit u : units) {

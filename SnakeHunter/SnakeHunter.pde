@@ -2,17 +2,22 @@ import java.util.ArrayList;
 
 int bulletTime = 0;
 int moveTime = 0;
+
 color backgroundColor = color(122,78,209);
-ArrayList<Snake> snakes = new ArrayList<Snake>(); //moved it up here
+
+ArrayList<Snake> snakes = new ArrayList<Snake>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-Gun bigGun = new Gun(); 
+
+Gun bigGun = new Gun();
+foodPellet food = new foodPellet();
+
+boolean isFoodHere = false; //is food pelled on map?
 
 void setup() {
   bulletTime = millis();
   moveTime = millis();
   size(500, 610);
   background(backgroundColor);
-  bigGun = new Gun(); //we can add new attributes to the gun later but for now, this is OK
   snakes.add(new Snake(5));
 }
 
@@ -23,9 +28,13 @@ void draw() {
   rectMode(CORNERS);
   rect(0,height-35,width,height);
   
+  if(!isFoodHere){
+    newFoodPellet();
+  }
+  
   bigGun.display();
 
-  check();
+  checkBullet();
 
   for (int i=0;i<bullets.size();i++) {
     if(bullets.get(i).getYcor() < 0){
@@ -37,9 +46,9 @@ void draw() {
     }
   }
  
-  for (Snake s : snakes) {
-    s.move();
-    s.display();
+  for (int i=0;i<snakes.size();i++) {
+    snakes.get(i).move();
+    snakes.get(i).display();
   }
   
   while(millis() - moveTime < 500){
@@ -49,7 +58,20 @@ void draw() {
   
 }
 
-void check(){ //checks for collisions
+void newFoodPellet(){
+  int randXcor = random(0,height-35);
+  int randYcor = random(0,width);
+  
+  while(checkForSnakes(randXcor,randYcor)){
+    int randXcor = random(0,height-35);
+    int randYcor = random(0,width);
+  }
+  
+  food = new foodPellet(randXcor,randYcor);
+  isFoodHere = true;
+}
+
+void checkBullet(){ //checks for collisions
   for(int i=0;i<snakes.size();i++){
     for(int j=0;j<snakes.get(i).getUnits().size();j++){
       for(int k=0;k<bullets.size();k++){
@@ -64,6 +86,14 @@ void check(){ //checks for collisions
   }
 }
     
+boolean checkForSnakes(int xcor, int ycor){
+  for(int i=0;i<snakes.size();i++){
+    if(snakes.get(i).getUnits().getXcor() == xcor && snakes.get(i).getUnits().getYcor() == ycor){
+      return true;
+    }
+  }
+  return false;
+}
 
 void keyPressed() {
   if (key == CODED){
