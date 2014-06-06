@@ -9,7 +9,7 @@ ArrayList<Snake> snakes = new ArrayList<Snake>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 
 Gun bigGun = new Gun();
-foodPellet food = new foodPellet();
+FoodPellet food;
 
 boolean isFoodHere = false; //is food pelled on map?
 
@@ -47,27 +47,27 @@ void draw() {
   }
  
   for (int i=0;i<snakes.size();i++) {
-    snakes.get(i).move();
+   if(millis() - moveTime >= 500){
+     snakes.get(i).move();
+     moveTime = millis();
+    }
     snakes.get(i).display();
   }
   
-  while(millis() - moveTime < 500){
-  }
-  
-  moveTime = millis();
-  
+  food.display();
+    
 }
 
 void newFoodPellet(){
-  int randXcor = random(0,height-35);
-  int randYcor = random(0,width);
+  int randXcor = (int) random(0,height-35);
+  int randYcor = (int) random(0,width);
   
   while(checkForSnakes(randXcor,randYcor)){
-    int randXcor = random(0,height-35);
-    int randYcor = random(0,width);
+    randXcor = (int) random(0,height-35);
+    randYcor = (int) random(0,width);
   }
   
-  food = new foodPellet(randXcor,randYcor);
+  food = new FoodPellet(randXcor,randYcor);
   isFoodHere = true;
 }
 
@@ -88,8 +88,10 @@ void checkBullet(){ //checks for collisions
     
 boolean checkForSnakes(int xcor, int ycor){
   for(int i=0;i<snakes.size();i++){
-    if(snakes.get(i).getUnits().getXcor() == xcor && snakes.get(i).getUnits().getYcor() == ycor){
-      return true;
+    for(int j=0;j<snakes.get(i).getUnits().size();j++){
+      if(snakes.get(i).getUnits().get(j).getXcor() == xcor && snakes.get(i).getUnits().get(j).getYcor() == ycor){
+        return true;
+      }
     }
   }
   return false;
