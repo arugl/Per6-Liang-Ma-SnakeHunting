@@ -55,7 +55,6 @@ void draw() {
   }
   
   food.display();
-    
 }
 
 void newFoodPellet(){
