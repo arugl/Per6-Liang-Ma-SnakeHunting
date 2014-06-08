@@ -7,7 +7,7 @@ class Gun {
   Gun() {
     xspeed = 10;
     xcor = 305;
-    ycor = 590;
+    ycor = 620;
   }
 
   void display() {

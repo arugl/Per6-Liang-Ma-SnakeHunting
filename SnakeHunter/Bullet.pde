@@ -37,5 +37,6 @@ public class Bullet {
   int getYcor() { 
     return ycor;
   }
+  
 }
 

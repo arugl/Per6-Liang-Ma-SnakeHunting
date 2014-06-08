@@ -6,16 +6,16 @@ class Unit {
   color backgroundColor = color(122, 78, 209);
   Unit prev;
 
-  Unit(int dir, int xcor, int ycor, color col) {
-    this.dir = dir;
+  Unit(int xcor, int ycor, color col) {
+    //this.dir = dir;
     this.xcor = xcor;
     this.ycor = ycor;
     this.col = col; //each snake will have a random color for all of its units
     prev = null;
   }
 
-  Unit(int dir, int xcor, int ycor, color col, Unit prev) {
-    this.dir = dir;
+  Unit(int xcor, int ycor, color col, Unit prev) {
+    //this.dir = dir;
     this.xcor = xcor;
     this.ycor = ycor;
     this.col = col;
@@ -50,6 +50,7 @@ class Unit {
   int getDir() { 
     return dir;
   }
+  
   Unit getPrev() { 
     return prev;
   }
