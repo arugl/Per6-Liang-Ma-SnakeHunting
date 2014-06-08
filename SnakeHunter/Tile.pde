@@ -99,8 +99,18 @@ class Tile {
   }
 
   String toString(){
-    return "[" + xcor + ":" + ycor + ", FVAL=" + fVal + ", GVAL=" + gVal + ", HVAL=" + hVal + "]";
+    //return "[" + xcor + ":" + ycor + "]"; //, FVAL=" + fVal + ", GVAL=" + gVal + ", HVAL=" + hVal + "]";'
+    String retStr = "";
+    retStr += "[" + xcor + ":" + ycor + " to ";
+    if(parent == null){
+      retStr += "NO_PARENT]";
+    }
+    else{
+      retStr+= parent.getXcor() + ":" + parent.getYcor() + "]";
+    }
+    return retStr;
   }
+  
 
   void setUnit(Unit unit) { 
     this.unit = unit;

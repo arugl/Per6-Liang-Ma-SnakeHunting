@@ -222,11 +222,11 @@ int findDirection(int startX, int startY, int endX, int endY) {
   open.add(tiles[startY][startX]);
   //tiles[startY][startX].changeList(1); //in open list
 
-  println("FIRST RUN *****");
-  println(open);
-  println("StartX: " + startX + ",StartY: " + startY);
-  println("EndX: " + endX + ",EndY: " + endY);
-  println("SnakeTest: " + tiles[30][26].isSnake());
+  //println("FIRST RUN *****");
+  //println(open);
+  //println("StartX: " + startX + ",StartY: " + startY);
+  //println("EndX: " + endX + ",EndY: " + endY);
+  //println("SnakeTest: " + tiles[30][26].isSnake());
   //println(closed);
 
   while (!open.isEmpty ()) {
@@ -241,6 +241,8 @@ int findDirection(int startX, int startY, int endX, int endY) {
     }
 
     //println(open);
+
+    //println("Closed List: " + closed);
 
     //find unit with lowest f-val
     int minDist = Integer.MAX_VALUE;
@@ -259,9 +261,14 @@ int findDirection(int startX, int startY, int endX, int endY) {
     //println(goldenTile);
 
     if (goldenTile.equals(tiles[endY][endX])) { //search up list of parents
+      println("Current Tile: " + goldenTile + "\n\n");
+      println(" YES YES YES YES YES " );
+      println("Closed:\n" + closed);
+      //println("Searching: " + goldenTile);
+      //println("Find: " + tiles[endY][endX]);
       return findPath(goldenTile, tiles[startY][startX]);
     } else {
-      open.get(minDistIndex).changeList(-1); //change to closed list
+      //open.get(minDistIndex).changeList(-1); //change to closed list
       closed.add(0, open.remove(minDistIndex));
 
       //adding neighbors to a new arraylist
@@ -288,20 +295,22 @@ int findDirection(int startX, int startY, int endX, int endY) {
         }
       }
 
-      for (int i=0; i<neighbors.size (); i++) { //neighbors of tile
+      for (int i=0; i<neighbors.size(); i++) { //neighbors of tile
         int temp_g_score = goldenTile.getGval() + 10; //g-score
 
         if (closed.contains(neighbors.get(i))) { } //closed neighbors
 
-        if (!open.contains(neighbors.get(i))) { //neighbor not in open list
-          neighbors.get(i).setParent(closed.get(0)); //sets goldenValue as parent
-          neighbors.get(i).setGval(temp_g_score);
-          neighbors.get(i).setFval(neighbors.get(i).getGval() + calcManhattanDistance(neighbors.get(i).getXcor(), neighbors.get(i).getYcor(), endX, endY));
-          neighbors.get(i).changeList(1);
-          open.add(neighbors.get(i));
+        if(!neighbors.get(i).equals(tiles[startY][startX]){
+          if (!open.contains(neighbors.get(i))) { //neighbor not in open list
+            neighbors.get(i).setParent(goldenTile); //sets goldenValue as parent
+            neighbors.get(i).setGval(temp_g_score);
+            neighbors.get(i).setFval(neighbors.get(i).getGval() + calcManhattanDistance(neighbors.get(i).getXcor(), neighbors.get(i).getYcor(), endX, endY));
+            //neighbors.get(i).changeList(1);
+            open.add(neighbors.get(i));
+          }
         } 
         else if (open.contains(neighbors.get(i)) && temp_g_score < neighbors.get(i).getGval()) { //special cases if neighbor is in
-          open.get(open.indexOf(neighbors.get(i))).setParent(closed.get(0)); //sets goldenValue as parent
+          open.get(open.indexOf(neighbors.get(i))).setParent(goldenTile); //sets goldenValue as parent
           open.get(open.indexOf(neighbors.get(i))).setGval(temp_g_score);
           open.get(open.indexOf(neighbors.get(i))).setFval(neighbors.get(i).getGval() + calcManhattanDistance(neighbors.get(i).getXcor(), neighbors.get(i).getYcor(), endX, endY));
         }
@@ -316,7 +325,9 @@ int calcManhattanDistance(int startX, int startY, int finX, int finY) { //calcul
 }
 
 int findPath (Tile start, Tile end) {
-  //println(start.getParent());
+  //println("Start: " + start);
+  //println("End: " + end);
+  //println("Parent: " + start.getParent() +"\n");
   if (start.getParent().equals(end)) {
     if (start.getYcor() < 59) {
       if (tiles[start.getYcor()+1][start.getXcor()].equals(end)) {
