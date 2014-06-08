@@ -98,6 +98,10 @@ class Tile {
     }
   }
 
+  String toString(){
+    return "[" + xcor + ":" + ycor + ", FVAL=" + fVal + ", GVAL=" + gVal + ", HVAL=" + hVal + "]";
+  }
+
   void setUnit(Unit unit) { 
     this.unit = unit;
   } //lol i don't think we need this

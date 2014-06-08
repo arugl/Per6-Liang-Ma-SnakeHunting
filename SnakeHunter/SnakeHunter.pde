@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 //public class SnakeHunter {
 
@@ -31,21 +32,41 @@ void setup() {
   background(backgroundColor);
   snakes.add(new Snake(5));
 
-  tiles = new Tile[50][60];
+  tiles = new Tile[60][50];
 
   for (int i=0; i<tiles.length; i++) { //sets up each tile
     for (int j=0; j<tiles[0].length; j++) {
       tiles[i][j] = new Tile(j, i);
     }
   }
+  
+  //println(tiles[59][32]);
+  
+  /*String ret = ""; //this is working
+  for(int i=0;i<tiles.length;i++){
+    ret+="[";
+    for(int j=0;j<tiles[0].length;j++){
+      ret+=tiles[i][j]+",";
+    }
+    ret+="]\n";
+  }
+ 
+  println(ret);
+  println("\n\n" + tiles[2][3]);*/
 }
 
-void draw() {
-
+void draw() {  
+  
   noStroke();
   fill(0);
   rectMode(CORNERS);
   rect(0, height - 40, width, height);
+
+  for(int i=0;i<snakes.size();i++){ //alter all tiles that have snakes to display it
+    for(int j=0;j<snakes.get(i).getUnits().size();j++){
+      tiles[snakes.get(i).get(j).getYcor()][snakes.get(i).get(j).getXcor()].changeSnake(true);
+    }
+  }
 
   if (snakes.size()==1) { 
     maxFood = 1;
@@ -83,8 +104,13 @@ void snakeMovement() {
 
       Tile currLocation = tiles[snake.get(0).getYcor()][snake.get(0).getXcor()];
       Tile food = getClosestFood(currLocation);
+      println("Current Location: " + currLocation);
+      println("Target Location: " + food);
+      //println("Target Location Has Food: " + food.isFood());
       int dir = findDirection(currLocation.getXcor(), currLocation.getYcor(), food.getXcor(), food.getYcor());
+      println("Direction: " + dir);
       snake.move(dir);
+      //println("Direction: " + dir);
 
       Unit head = snake.get(0); //new spot gets snake
       tiles[head.getYcor()][head.getXcor()].changeSnake(true);
@@ -110,13 +136,16 @@ void bulletMovement() {
 }
 
 FoodPellet newFood() {
-  int randX = (int) random(50);
-  int randY = (int) random(60);
+  Random stop = new Random();
+  int randX = stop.nextInt(50);
+  int randY = stop.nextInt(60);
+  println("RandX: " + randX);
+  println("RandY: " + randY);
   Tile tmp = tiles[randY][randX];
 
   while (tmp.isSnake () || tmp.isFood()) {
-    randX = (int) random(50);
-    randY = (int) random(60);
+    randX = (int) stop.nextInt(50);
+    randY = (int) stop.nextInt(60);
     tmp = tiles[randY][randX];
   }
 
@@ -191,7 +220,14 @@ int findDirection(int startX, int startY, int endX, int endY) {
   ArrayList<Tile> closed = new ArrayList<Tile>(); //used for A*
 
   open.add(tiles[startY][startX]);
-  tiles[startY][startX].changeList(1); //in open list
+  //tiles[startY][startX].changeList(1); //in open list
+
+  println("FIRST RUN *****");
+  println(open);
+  println("StartX: " + startX + ",StartY: " + startY);
+  println("EndX: " + endX + ",EndY: " + endY);
+  println("SnakeTest: " + tiles[30][26].isSnake());
+  //println(closed);
 
   while (!open.isEmpty ()) {
 
@@ -202,7 +238,9 @@ int findDirection(int startX, int startY, int endX, int endY) {
       open.get(i).setFval(fVal);
       open.get(i).setGval(gVal);
       open.get(i).setHval(hVal);
-    } 
+    }
+
+    //println(open);
 
     //find unit with lowest f-val
     int minDist = Integer.MAX_VALUE;
@@ -213,8 +251,12 @@ int findDirection(int startX, int startY, int endX, int endY) {
         minDistIndex = i;
       }
     }
+    
+    
 
     Tile goldenTile = open.get(minDistIndex); //currently considering this tile
+
+    //println(goldenTile);
 
     if (goldenTile.equals(tiles[endY][endX])) { //search up list of parents
       return findPath(goldenTile, tiles[startY][startX]);

@@ -29,6 +29,13 @@ class Unit {
     rect(xcor*10, ycor*10, 10, 10);
   }
 
+  void superDisplay(){
+    stroke(#9B0909);
+    fill(col);
+    rectMode(CENTER);
+    rect(xcor*10, ycor*10, 10, 10);
+  }
+
   void die() {
     rectMode(CENTER);
     stroke(backgroundColor);

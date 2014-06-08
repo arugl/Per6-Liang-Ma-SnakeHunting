@@ -61,8 +61,13 @@ class Snake {
   }
 
   void display() {
-    for (Unit u : units) {
-      u.display();
+    for (int i=0;i<size();i++) {
+      if(i==0){
+        get(0).superDisplay();
+      }
+      else{
+        get(i).display();
+      }
     }
   }
 
