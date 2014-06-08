@@ -11,15 +11,15 @@ class FoodPellet {
   void display(){
     ellipseMode(CENTER);
     noStroke();
-    fill(random(255),random(255),random(255));
-    ellipse(xcor,ycor,10,10);
+    fill(random(255),random(255),random(255));//rainbows!
+    ellipse(xcor*10,ycor*10,10,10);
   }
   
   void die(){
     rectMode(CENTER);
     stroke(backgroundColor);
     fill(backgroundColor);
-    rect(xcor,ycor,10,10);
+    rect(xcor*10,ycor*10,10,10);
   }
   
   public int getXcor(){ return xcor; }

@@ -16,7 +16,7 @@ class Bullet {
     stroke(255);
     fill(col);
     rectMode(CENTER);
-    rect(xcor, ycor, 10, 10);
+    rect(xcor*10, ycor*10, 10, 10);
   }
   
   void flying() {
@@ -28,7 +28,7 @@ class Bullet {
     rectMode(CENTER);
     stroke(backgroundColor);
     fill(backgroundColor);
-    rect(xcor,ycor,10,10);
+    rect(xcor*10,ycor*10,10,10);
   }
   
   float getXcor() { return xcor; }

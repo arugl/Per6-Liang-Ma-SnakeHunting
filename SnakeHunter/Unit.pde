@@ -4,7 +4,7 @@ class Unit {
   float xcor, ycor;
   color col;
   color backgroundColor = color(122,78,209);
-  Unit prev; //changed from next
+  Unit prev;
   
   Unit(int dir, float xcor, float ycor, color col) {
     this.dir = dir;
@@ -26,14 +26,14 @@ class Unit {
     stroke(#FFFFFF);
     fill(col);
     rectMode(CENTER);
-    rect(xcor, ycor, 10, 10);
+    rect(xcor*10, ycor*10, 10, 10);
   }
 
   void die(){
     rectMode(CENTER);
     stroke(backgroundColor);
     fill(backgroundColor);
-    rect(xcor,ycor,10,10);
+    rect(xcor*10,ycor*10,10,10);
   }
 
   void setColor(color col) { this.col = col; }
