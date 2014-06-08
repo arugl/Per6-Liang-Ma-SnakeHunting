@@ -1,28 +1,33 @@
 class FoodPellet {
-  
+
   int xcor, ycor;
-  color backgroundColor = color(122,78,209);
-    
-  public FoodPellet (int xcor, int ycor){
+  color backgroundColor = color(122, 78, 209);
+
+  public FoodPellet (int xcor, int ycor) {
     this.xcor = xcor;
     this.ycor = ycor;
   }
-  
-  void display(){
+
+  void display() {
     ellipseMode(CENTER);
     noStroke();
-    fill(random(255),random(255),random(255));//rainbows!
-    ellipse(xcor*10,ycor*10,10,10);
+    fill(random(255), random(255), random(255));//rainbows!
+    ellipse(xcor*10, ycor*10, 10, 10);
   }
-  
-  void die(){
+
+  void die() {
     rectMode(CENTER);
     stroke(backgroundColor);
     fill(backgroundColor);
-    rect(xcor*10,ycor*10,10,10);
+    rect(xcor*10, ycor*10, 10, 10);
+  }
+
+  public int getXcor() { 
+    return xcor;
+  }
+  public int getYcor() { 
+    return ycor;
   }
   
-  public int getXcor(){ return xcor; }
-  public int getYcor(){ return ycor; }
-  
 }
+

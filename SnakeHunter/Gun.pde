@@ -9,7 +9,7 @@ class Gun {
     xcor = 305;
     ycor = 590;
   }
-  
+
   void display() {
     stroke(60);
     fill(col);
@@ -20,11 +20,11 @@ class Gun {
   void moveLeft() {
     die();
     xcor = xcor - xspeed;
-    if (xcor < 5){
+    if (xcor < 5) {
       xcor = width - 5;
     }
   }
-  
+
   void moveRight() {
     die();
     xcor = xcor + xspeed;
@@ -33,14 +33,18 @@ class Gun {
     }
   }
 
-  void die(){
+  void die() {
     rectMode(CENTER);
     stroke(gunBackgroundColor);
     fill(gunBackgroundColor);
-    rect(xcor,ycor,10,30);
+    rect(xcor, ycor, 10, 30);
   }
 
-  float getXcor() { return xcor; }
-  float getYcor() { return ycor; }  
-  
+  float getXcor() { 
+    return xcor;
+  }
+  float getYcor() { 
+    return ycor;
+  }
 }
+

@@ -1,4 +1,4 @@
-class AStar {
+/*class AStar {
   ArrayList<Tile> open;
   ArrayList<Tile> closed;
   Tile[][] board;

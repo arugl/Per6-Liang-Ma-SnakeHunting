@@ -3,9 +3,9 @@ class Unit {
   //int val;
   float xcor, ycor;
   color col;
-  color backgroundColor = color(122,78,209);
+  color backgroundColor = color(122, 78, 209);
   Unit prev;
-  
+
   Unit(int dir, float xcor, float ycor, color col) {
     this.dir = dir;
     this.xcor = xcor;
@@ -29,26 +29,43 @@ class Unit {
     rect(xcor*10, ycor*10, 10, 10);
   }
 
-  void die(){
+  void die() {
     rectMode(CENTER);
     stroke(backgroundColor);
     fill(backgroundColor);
-    rect(xcor*10,ycor*10,10,10);
+    rect(xcor*10, ycor*10, 10, 10);
   }
 
-  void setColor(color col) { this.col = col; }
-  
-  void setDir(int dir) { this.dir = dir; }
-  void setPrev(Unit prev){ this.prev = prev; }
-  
-  int getDir() { return dir; }
-  Unit getPrev(){ return prev; }
-    
-  float getXcor(){ return xcor; }
-  float getYcor(){ return ycor; }
-  
-  void setXcor(float xcor){ this.xcor = xcor; }
-  void setYcor(float ycor){ this.ycor = ycor; }  
+  void setColor(color col) { 
+    this.col = col;
+  }
 
+  void setDir(int dir) { 
+    this.dir = dir;
+  }
+  void setPrev(Unit prev) { 
+    this.prev = prev;
+  }
+
+  int getDir() { 
+    return dir;
+  }
+  Unit getPrev() { 
+    return prev;
+  }
+
+  float getXcor() { 
+    return xcor;
+  }
+  float getYcor() { 
+    return ycor;
+  }
+
+  void setXcor(float xcor) { 
+    this.xcor = xcor;
+  }
+  void setYcor(float ycor) { 
+    this.ycor = ycor;
+  }
 }
 
