@@ -5,7 +5,9 @@ class Tile {
   int inList; //used for A* //-1 closed, 0 not, 1 open
   Tile parent; //used for A*
   boolean hasSnake, hasBullet, hasFood;
-  Unit unit, Bullet bullet, Food food;
+  Unit unit;
+  Bullet bullet;
+  FoodPellet food;
 
   //color col;  //default color = color(122, 78, 209);
 
@@ -13,7 +15,7 @@ class Tile {
     this.xcor = xcor;
     this.ycor = ycor;
     hasSnake = false;
-    inList = false;
+    inList = 0;
     fVal = -1; //no fVal
     gVal = -1; //no gVal
     hVal = -1; //no hVal
@@ -69,7 +71,7 @@ class Tile {
   Bullet getBullet() { 
     return bullet;
   }
-  Food getFood() { 
+  FoodPellet getFood() { 
     return food;
   }
   Unit getUnit() { 
@@ -99,7 +101,7 @@ class Tile {
   void setUnit(Unit unit) { 
     this.unit = unit;
   } //lol i don't think we need this
-  void setFood(Food food) { 
+  void setFood(FoodPellet food) { 
     this.food = food;
   } 
   void setBullet(Bullet bullet) { 

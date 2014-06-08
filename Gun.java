@@ -1,23 +1,23 @@
-class Gun {
-  color col = color(209);
-  color gunBackgroundColor = color(0);
-  int xcor, ycor;
-  int xspeed, yspeed;
+public class Gun {
+  private color col = color(209);
+  private color gunBackgroundColor = color(0);
+  private float xcor, ycor;
+  private float xspeed, yspeed;
 
-  Gun() {
+  public Gun() {
     xspeed = 10;
     xcor = 305;
     ycor = 590;
   }
 
-  void display() {
+  public void display() {
     stroke(60);
     fill(col);
     rectMode(CENTER);
     rect(xcor, ycor, 10, 30);
   }
 
-  void moveLeft() {
+  public void moveLeft() {
     die();
     xcor = xcor - xspeed;
     if (xcor < 5) {
@@ -25,7 +25,7 @@ class Gun {
     }
   }
 
-  void moveRight() {
+  public void moveRight() {
     die();
     xcor = xcor + xspeed;
     if (xcor > width - 5) {
@@ -33,17 +33,17 @@ class Gun {
     }
   }
 
-  void die() {
+  public void die() {
     rectMode(CENTER);
     stroke(gunBackgroundColor);
     fill(gunBackgroundColor);
     rect(xcor, ycor, 10, 30);
   }
 
-  int getXcor() { 
+  public float getXcor() { 
     return xcor;
   }
-  int getYcor() { 
+  public float getYcor() { 
     return ycor;
   }
 }

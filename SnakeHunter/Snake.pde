@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 class Snake { 
   color col;
-  float spd;
+  int spd;
   ArrayList<Unit> units;
 
   Snake(int len) { //first-run constructor
@@ -11,24 +11,24 @@ class Snake {
     spd = 10;
     units = new ArrayList();
 
-    float xcor = height/2;
-    float ycor = width/2;
+    int xcor = 25;
+    int ycor = 30;
 
     Random rand = new Random();
     col = color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
 
-    // unit constructor: Unit(int dir, float xcor, float ycor, color col, Unit prev (opt))
+    // unit constructor: Unit(int dir, int xcor, int ycor, color col, Unit prev (opt))
     units.add(new Unit(2, xcor, ycor, col)); //first unit has no prev
 
     for (int i=1; i<len; i++) {
-      xcor += 10;
+      xcor++;
       units.add(new Unit(2, xcor, ycor, col, units.get(i-1)));
     }
   }  
 
   Snake(ArrayList<Unit> units) {
     this.units = units;
-    spd = 5;
+    spd = 10;
     Random rand = new Random(255);
     col = color(rand.nextInt(), rand.nextInt(), rand.nextInt());
     for (Unit n : units) {
@@ -50,13 +50,13 @@ class Snake {
 
     switch(dir) {
     case 1: 
-      units.get(0).setYcor(units.get(0).getYcor() + 10);
+      units.get(0).setYcor(units.get(0).getYcor() + 1);
     case 2: 
-      units.get(0).setXcor(units.get(0).getXcor() + 10);
+      units.get(0).setXcor(units.get(0).getXcor() + 1);
     case 3: 
-      units.get(0).setYcor(units.get(0).getYcor() - 10);
+      units.get(0).setYcor(units.get(0).getYcor() - 1);
     case 4: 
-      units.get(0).setXcor(units.get(0).getXcor() - 10);
+      units.get(0).setXcor(units.get(0).getXcor() - 1);
     }
   }
 
@@ -68,6 +68,14 @@ class Snake {
 
   ArrayList<Unit> getUnits() { 
     return units;
+  }
+  
+  Unit remove(int ind){
+    return units.remove(ind);
+  }
+  
+  Unit get(int ind){
+    return units.get(ind);
   }
   
 }

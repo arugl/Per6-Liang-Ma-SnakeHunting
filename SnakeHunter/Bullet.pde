@@ -1,12 +1,12 @@
-class Bullet {
-  float xcor, ycor;
+public class Bullet {
+  int xcor, ycor;
   color backgroundColor = color(122, 78, 209);
-  float spd; //you only need one- vertical
+  int spd; //you only need one- vertical
   color col = color(62);
 
   //Bullet() { } //?
 
-  Bullet(float xcor, float ycor) {
+  Bullet(int xcor, int ycor) {
     spd = 10;
     this.xcor = xcor;
     this.ycor = ycor;
@@ -31,10 +31,10 @@ class Bullet {
     rect(xcor*10, ycor*10, 10, 10);
   }
 
-  float getXcor() { 
+  int getXcor() { 
     return xcor;
   }
-  float getYcor() { 
+  int getYcor() { 
     return ycor;
   }
 }

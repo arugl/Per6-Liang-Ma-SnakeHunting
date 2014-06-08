@@ -1,12 +1,12 @@
 class Unit {
   int dir; //1 = north; 2 = east; 3 = south; 4 = west
   //int val;
-  float xcor, ycor;
+  int xcor, ycor;
   color col;
   color backgroundColor = color(122, 78, 209);
   Unit prev;
 
-  Unit(int dir, float xcor, float ycor, color col) {
+  Unit(int dir, int xcor, int ycor, color col) {
     this.dir = dir;
     this.xcor = xcor;
     this.ycor = ycor;
@@ -14,7 +14,7 @@ class Unit {
     prev = null;
   }
 
-  Unit(int dir, float xcor, float ycor, color col, Unit prev) {
+  Unit(int dir, int xcor, int ycor, color col, Unit prev) {
     this.dir = dir;
     this.xcor = xcor;
     this.ycor = ycor;
@@ -54,17 +54,17 @@ class Unit {
     return prev;
   }
 
-  float getXcor() { 
+  int getXcor() { 
     return xcor;
   }
-  float getYcor() { 
+  int getYcor() { 
     return ycor;
   }
 
-  void setXcor(float xcor) { 
+  void setXcor(int xcor) { 
     this.xcor = xcor;
   }
-  void setYcor(float ycor) { 
+  void setYcor(int ycor) { 
     this.ycor = ycor;
   }
 }

@@ -3,7 +3,7 @@ class FoodPellet {
   int xcor, ycor;
   color backgroundColor = color(122, 78, 209);
 
-  public FoodPellet (int xcor, int ycor) {
+  FoodPellet (int xcor, int ycor) {
     this.xcor = xcor;
     this.ycor = ycor;
   }
