@@ -15,82 +15,6 @@ int maxFood;
 Gun bigGun = new Gun();
 
 
-int findDirection(int startX,int startY, int endX, int endY){
-
-  ArrayList<Tile> open = new ArrayList<Tile>; //used for A*
-  ArrayList<Tile> closed = new ArrayList<Tile>; //used for A*
-  
-  open.add(tiles[startY][startX]);
-  
-  //tiles[startY][startX].changeList(true);
-  while(!open.isEmpty()){
-    
-    for(int i=0;i<open.size();i++){ //set f-values
-      int gVal = calcManhattanDistance(startX,startY,open.get(i).getXcor(),open.get(i).getYcor());
-      int hVal = calcManhattanDistance(open.get(i).getXcor(),open.get(i).getYcor(),endX,endY);
-      int fVal = gVal + hVal;
-      open.get(i).setFval(fVal);
-    } 
-    
-    //find unit with lowest f-value
-    int minDist = Integer.MAX_INT;
-    int minDistIndex = 0;
-    for(int i=0;i<open.size();i++){
-      if(open.get(i).getFval() < minDist){
-        minDist = open.get(i).getFval();
-        minDistIndex = i;
-      }
-    }
-    
-    Tile goldenTile = open.get(minDistIndex); //currently considering this tile
-    
-    if(goldenTile.equals(Tile[endY][endX])){
-      break; //***FIX
-    }
-    else{
-      closed.add(0,open.remove(goldenTile));
-      
-    
-    
-    
-    open.add(0,tmp);
-    if(!tiles[startY+1][startX].isSnake() && !tiles[startY+1][startX].isList()){
-      open.add(tiles[startY+1][startX]);
-      tiles[startY+1][startX].changeList(true);
-    }
-    if(!tiles[startY-1][startX].isSnake() && !tiles[startY-1][startX].isList()){
-      open.add(tiles[startY-1][startX]);
-      tiles[startY-1][startX].changeList(true);
-    }
-    if(!tiles[startY][startX+1].isSnake() && !tiles[startY][startX+1].isList()){
-      open.add(tiles[startY][startX+1]);
-      tiles[startY][startX+1].changeList(true);
-    }
-    if(!tiles[startY][startX-1].isSnake() && !tiles[startY][startX-1].isList()){
-      open.add(tiles[startY][startX-1]);
-      tiles[startY][startX-1].changeList(true);
-    }
-    
-    closed.add(0,open.remove(0));
-   
-    
-    //set parent of unit
-    closed.get(0).setParexnt(open.get(minDistIndex));
-    //remove unit with lowest f-value from open list and add to closed list
-    closed.add(open.remove(minDistIndex));
-    
-    
-    
-    
-  }
-}
-
-
-
-int calcManhattanDistance(int startX,int startY,int finX,int finY) { //calculates manhattan distance- helps A*
-  return abs(finX - startX) + abs(finY - startY); 
-}
-
 void setup() {
   bulletTime = millis();
   moveTime = millis();
@@ -232,6 +156,141 @@ Tile getClosestFood(Tile n) {
   return tiles[ycor][xcor];
 }
 
+
+
+int findDirection(int startX,int startY, int endX, int endY){
+
+  ArrayList<Tile> open = new ArrayList<Tile>; //used for A*
+  ArrayList<Tile> closed = new ArrayList<Tile>; //used for A*
+  
+  open.add(tiles[startY][startX]);
+  tiles[startY][startX].changeList(1); //in open list
+  
+  while(!open.isEmpty()){
+    
+    for(int i=0;i<open.size();i++){ //set f-,g-,and h-values
+      int gVal = calcManhattanDistance(startX,startY,open.get(i).getXcor(),open.get(i).getYcor());
+      int hVal = calcManhattanDistance(open.get(i).getXcor(),open.get(i).getYcor(),endX,endY);
+      int fVal = gVal + hVal;
+      open.get(i).setFval(fVal);
+      open.get(i).setGval(gVal);
+      open.get(i).setHval(hVal);
+    } 
+    
+    //find unit with lowest f-val
+    int minDist = Integer.MAX_INT;
+    int minDistIndex = 0;
+    for(int i=0;i<open.size();i++){
+      if(open.get(i).getFval() < minDist){
+        minDist = open.get(i).getFval();
+        minDistIndex = i;
+      }
+    }
+    
+    Tile goldenTile = open.get(minDistIndex); //currently considering this tile
+    
+    if(goldenTile.equals(tiles[endY][endX])){ //search up list of parents
+      return findPath(tiles[startY][startX],goldenTile);  
+    }
+    else{
+      goldenTile.changeList(-1); //change to closed list
+      closed.add(0,open.remove(goldenTile));
+            
+      //adding neighbors to a new arraylist
+      //catching exceptions if they go out of bounds
+      ArrayList<Tile> neighbors = new ArrayList<Tile>;
+      if(goldenTile.getYcor()+1 <= 59){
+        if(!tiles[goldenTile.getYcor()+1][goldenTile.getXcor()].isSnake()){
+          neighbors.add(tiles[goldenTile.getYcor()+1][goldenTile.getXcor()]);}}
+      if(goldenTile.getYcor()-1 >= 0){
+        if(!tiles[goldenTile.getYcor()-1][goldenTile.getXcor()].isSnake()){
+          neighbors.add(tiles[goldenTile.getYcor()-1][goldenTile.getXcor()]);}}
+      if(goldenTile.getXcor()+1 <= 49){
+        if(!tiles[goldenTile.getYcor()][goldenTile.getXcor()+1].isSnake()){
+          neighbors.add(tiles[goldenTile.getYcor()][goldenTile.getXcor()+1]);}}
+      if(goldenTile.getXcor()-1 >=0){
+        if(!tiles[goldenTile.getYcor()][goldenTile.getXcor()-1].isSnake()){
+          neighbors.add(tiles[goldenTile.getYcor()][goldenTile.getXcor()-1]);}}
+      
+      for(int i=0;i<neighbors.size();i++){ //neighbors of tile
+        int temp_g_score = goldenTile.getGval() + 10;
+        if(neighbors.get(i).isList() == 0){ //neighbor not in list
+           neighbors.get(i).setParent(goldenTile);
+           neighbors.get(i).setGval(temp_g_score);
+           neighbors.get(i).setFval(neighbors.get(i).getGval() + calcManhattanDistance(neighbors.get(i).getXcor(),neighbors.get(i).getYcor(),endX,endY);
+           neighbors.get(i).changeList(1);
+           open.add(neighbors.get(i);
+        }
+        else if(neighbors.get(i).isList() == 1 && temp_g_score < neighbors.get(i).getGval()){ //special cases if neighbor is in
+          open.get(open.indexOf(neighbors.get(i))).setParent(goldenTile);
+          open.get(open.indexOf(neighbors.get(i))).setGval(temp_g_score);
+          open.get(open.indexOf(neighbors.get(i))).setFval(neighbors.get(i).getGval() + calcManhattanDistance(neighbors.get(i).getXcor(),neighbors.get(i).getYcor(),endX,endY);
+        }
+      }
+    }
+  }
+  return -1;
+}
+  
+int calcManhattanDistance(int startX,int startY,int finX,int finY) { //calculates manhattan distance- helps A*
+  return abs(finX - startX) + abs(finY - startY); 
+}
+
+int findPath (Tile start, Tile end){
+  if(start.getParent().equals(end)){
+    if(tiles[start.getYcor()+1][start.getXcor()].equals(end)){
+      return 3; //go south
+    }
+    else if(tiles[start.getYcor()-1][start.getXcor()].equals(end)){
+      return 1; //go north
+    }
+    else if(tiles[start.getYcor()][start.getXcor()+1].equals(end)){
+      return 2; //go east
+    }
+    else if(tiles[start.getYcor()][start.getXcor()-1].equals(end)){
+      return 4; //go west
+    }
+  }
+  return findPath(start.getParent(),end);
+}
 //1=north, 2=east, 3=south, 4=west
-int AStarSearching(Tile a, Tile b){
+/*        
+      if(!tiles[startY+1][startX].isSnake()){ //tile is not occupied by snake
+        if (tiles[startY+1][startX].isList() == 0){ //tile is not already in a list (open/closed)
+          open.add(tiles[startY+1][startX]); //add the tile
+        }else if (tiles[startY+1][startX].isList() == 1){ //tile is in open list
+          if (open.get(open.indexOf(tiles[startY+1][startX])).getGval() < goldenTile.getGval()){ //if tile gVal < current gVal
+            
+      tiles[startY+1][startX].changeList(true);
+    }
+      
+    
+    
+    
+    open.add(0,tmp);
+    if(!tiles[startY+1][startX].isSnake() && !tiles[startY+1][startX].isList()){
+      open.add(tiles[startY+1][startX]);
+      tiles[startY+1][startX].changeList(true);
+    }
+    if(!tiles[startY-1][startX].isSnake() && !tiles[startY-1][startX].isList()){
+      open.add(tiles[startY-1][startX]);
+      tiles[startY-1][startX].changeList(true);
+    }
+    if(!tiles[startY][startX+1].isSnake() && !tiles[startY][startX+1].isList()){
+      open.add(tiles[startY][startX+1]);
+      tiles[startY][startX+1].changeList(true);
+    }
+    if(!tiles[startY][startX-1].isSnake() && !tiles[startY][startX-1].isList()){
+      open.add(tiles[startY][startX-1]);
+      tiles[startY][startX-1].changeList(true);
+    }
+    
+    closed.add(0,open.remove(0));
+   
+    
+    //set parent of unit
+    closed.get(0).setParent(open.get(minDistIndex));
+    //remove unit with lowest f-value from open list and add to closed list
+    closed.add(open.remove(minDistIndex));
+    */
   

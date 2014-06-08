@@ -1,8 +1,8 @@
 class Tile {
   
   int xcor, ycor;
-  int fVal, gVal; //used for A*
-  boolean inList; //used for A*
+  int fVal, gVal, hVal; //used for A*
+  int inList; //used for A* //-1 closed, 0 not, 1 open
   Tile parent; //used for A*
   boolean hasSnake, hasBullet, hasFood;
   Unit unit, Bullet bullet, Food food;
@@ -14,15 +14,20 @@ class Tile {
     this.ycor = ycor;
     hasSnake = false;
     inList = false;
+    fVal = -1; //no fVal
+    gVal = -1; //no gVal
+    hVal = -1; //no hVal
+    inList = 0; //not in list
   }
 
   void changeSnake(boolean boo) { hasSnake = boo; }
   void changeFood(boolean boo) { hasFood = boo; }
   void changeBullet(boolean boo) { hasBullet = boo; }
-  void changeList(boolean boo) { inList = boo; } //A*
+  void changeList(int num) { inList = num; } //A*
   
   void setFval(int fVal){ this.fVal = fVal; } //A*
   void setGval(int gVal){ this.gVal = gVal; } //A*
+  void setHval(int hVal){ this.hVal = hVal; } //A*
   void setParent(Tile parent){ this.parent = parent; } //A*
   
   int getXcor () { return xcor; }
@@ -31,13 +36,15 @@ class Tile {
   boolean isSnake() { return hasSnake; }
   boolean isFood() { return hasFood; }
   boolean isBullet() { return hasBullet; }
-  boolean isList() { return inList; } //A*
+  int isList() { return inList; } //A*
   
   Bullet getBullet() { return bullet; }
   Food getFood() { return food; }
   Unit getUnit() { return unit; }
   int getFval() { return fVal; } //A*
   int getGval() { return gVal; } //A*
+  int getHval() { return hVal; } //A*
+  Tile getParent() { return parent; }
   
   boolean equals(Tile n){ //override equals method
     if(xcor == n.getXcor() && ycor == n.getYcor()){
