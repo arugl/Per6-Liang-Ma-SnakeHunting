@@ -1,4 +1,4 @@
-public class Bullet {
+public class Bullet { //STORED IN REAL-VALUE XYCORS
   int xcor, ycor;
   color backgroundColor = color(122, 78, 209);
   int spd; //you only need one- vertical
@@ -16,7 +16,7 @@ public class Bullet {
     stroke(255);
     fill(col);
     rectMode(CENTER);
-    rect(xcor*10, ycor*10, 10, 10);
+    rect(xcor, ycor, 10, 10);
   }
 
   void flying() {
@@ -28,14 +28,14 @@ public class Bullet {
     rectMode(CENTER);
     stroke(backgroundColor);
     fill(backgroundColor);
-    rect(xcor*10, ycor*10, 10, 10);
+    rect(xcor, ycor, 10, 10);
   }
 
   int getXcor() { 
-    return xcor;
+    return xcor/10;
   }
   int getYcor() { 
-    return ycor;
+    return ycor/10;
   }
   
 }

@@ -93,12 +93,10 @@ void draw() {
 void bulletMovement() {
 
   for (int i=0; i<bullets.size (); i++) {
-    tiles[bullets.get(i).getYcor()][bullets.get(i).getXcor()].changeBullet(false); //remove bullet from previous position tile
     if (bullets.get(i).getYcor() < 0) {
       bullets.remove(i);
     } else {
       bullets.get(i).flying();
-      tiles[bullets.get(i).getYcor()][bullets.get(i).getXcor()].changeBullet(true); //add bullet to new position tile
       bullets.get(i).display();
     }
   }
@@ -149,15 +147,17 @@ void checkBullet() { //checks for collisions
 void keyPressed() {
   if (key == CODED || key == 'a' || key == 'd') {
     if (keyCode == RIGHT || key == 'd') {
-      bigGun.moveRight();
-      bigGun.display();
+      if(bigGun.getXcor() < width - 10){
+        bigGun.moveRight();
+      }bigGun.display();
     } else if (keyCode == LEFT || key == 'a') {
-      bigGun.moveLeft();
-      bigGun.display();
+      if(bigGun.getXcor() > 10){
+        bigGun.moveLeft();
+      }bigGun.display();
     }
   } else if (key == ' ') {
     if (millis() - bulletTime >= 250) {
-      Bullet bigBullet = new Bullet(bigGun.getXcor(), bigGun.getYcor() - 10);
+      Bullet bigBullet = new Bullet(bigGun.getXcor(), 590);
       bullets.add(bigBullet);
       bulletTime = millis();
     }
@@ -183,18 +183,41 @@ Tile getClosestFood(Tile n) {
   return tiles[ycor][xcor];
 }
 
-void recalculate(){ //recalculates values for snakes and food
+void recalculate(){ //recalculates values for snakes and food and bullets
   //RECALCULATING STATUS
-  for(int i=0;i<snakes.size();i++){ //alter all tiles that have snakes to display it
-    for(int j=0;j<snakes.get(i).getUnits().size();j++){
-      tiles[snakes.get(i).get(j).getYcor()][snakes.get(i).get(j).getXcor()].changeSnake(true);
+  for(int i=0;i<tiles.length;i++){
+    for(int j=0;j<tiles[0].length;j++){
+      
+      for(int a=0;a<snakes.size();a++){ //check on status of snakes
+        for(int b=0;b<snakes.get(a).size();b++){
+          if(snakes.get(a).get(b).getXcor() == j && snakes.get(a).get(b).getYcor() == i){
+            tiles[i][j].changeSnake(true);
+          }else{
+            tiles[i][j].changeSnake(false);
+          }
+        }
+      }
+      
+      for(int a=0;a<food.size();a++){
+        if(food.get(a).getXcor() == j && food.get(a).getYcor() == i){
+          tiles[i][j].changeFood(true);
+        }else{
+          tiles[i][j].changeFood(false);
+        }
+      }
+      
+      for(int a=0;a<bullets.size();a++){
+        if(bullets.get(a).getXcor() == j && bullets.get(a).getYcor() == i){
+          tiles[i][j].changeBullet(true);
+        }else{
+          tiles[i][j].changeBullet(false);
+        }
+      }
+      
     }
   }
-  
-  for(int i=0;i<food.size();i++){
-    tiles[food.get(i).getYcor()][food.get(i).getXcor()].changeFood(true);
-  }
 }
+      
 
 //=====================================================================================================================
 

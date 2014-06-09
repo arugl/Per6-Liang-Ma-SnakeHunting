@@ -6,7 +6,7 @@ class Gun {
 
   Gun() {
     xspeed = 10;
-    xcor = 305;
+    xcor = 310;
     ycor = 620;
   }
 
@@ -14,22 +14,23 @@ class Gun {
     stroke(60);
     fill(col);
     rectMode(CENTER);
-    rect(xcor, ycor, 10, 30);
+    rect(xcor, ycor, 10, 30); //+5?
   }
 
   void moveLeft() {
     die();
     xcor = xcor - xspeed;
-    if (xcor < 5) {
-      xcor = width - 5;
+    if (xcor < 0) {
+      xcor = width-10;
     }
   }
 
   void moveRight() {
     die();
     xcor = xcor + xspeed;
-    if (xcor > width - 5) {
-      xcor = 5;
+    if (xcor > width) {
+      xcor = 0;
+      display();
     }
   }
 
