@@ -62,10 +62,15 @@ void draw() {
   rectMode(CORNERS);
   rect(0, height - 40, width, height);
 
+//RECALCULATING STATUS
   for(int i=0;i<snakes.size();i++){ //alter all tiles that have snakes to display it
     for(int j=0;j<snakes.get(i).getUnits().size();j++){
       tiles[snakes.get(i).get(j).getYcor()][snakes.get(i).get(j).getXcor()].changeSnake(true);
     }
+  }
+  
+  for(int i=0;i<food.size();i++){
+    tiles[food.get(i).getYcor()][food.get(i).getXcor()].changeFood(true);
   }
 
   if (snakes.size()==1) { 
@@ -91,33 +96,6 @@ void draw() {
 
   for (FoodPellet n : food) {
     n.display();
-  }
-}
-
-void snakeMovement() {
-  for (int i = 0; i < snakes.size (); i++) {
-    Snake snake = snakes.get(i);
-    if (millis() - moveTime >= 500) {
-
-      Unit end = snake.lastUnit();
-      tiles[end.getYcor()][end.getXcor()].changeSnake(false); //old spot no longer has snake
-
-      Tile currLocation = tiles[snake.get(0).getYcor()][snake.get(0).getXcor()];
-      Tile food = getClosestFood(currLocation);
-      println("Current Location: " + currLocation);
-      println("Target Location: " + food);
-      //println("Target Location Has Food: " + food.isFood());
-      int dir = findDirection(currLocation.getXcor(), currLocation.getYcor(), food.getXcor(), food.getYcor());
-      println("Direction: " + dir);
-      snake.move(dir);
-      //println("Direction: " + dir);
-
-      Unit head = snake.get(0); //new spot gets snake
-      tiles[head.getYcor()][head.getXcor()].changeSnake(true);
-
-      moveTime = millis();
-    }
-    snake.display();
   }
 }
 
@@ -213,6 +191,30 @@ Tile getClosestFood(Tile n) {
   }
   return tiles[ycor][xcor];
 }
+
+//=====================================================================================================================
+
+void snakeMovement() {
+  for (int i = 0; i < snakes.size (); i++) {
+    Snake snake = snakes.get(i);
+    if (millis() - moveTime >= 500) {
+
+      Tile currLocation = tiles[snake.get(0).getYcor()][snake.get(0).getXcor()];
+      Tile food = getClosestFood(currLocation);
+      println("Current Location: " + currLocation);
+      println("Target Location: " + food);
+      //println("Target Location Has Food: " + food.isFood());
+      int dir = findDirection(currLocation.getXcor(), currLocation.getYcor(), food.getXcor(), food.getYcor());
+      println("Direction: " + dir);
+      snake.move(dir);
+
+      moveTime = millis();
+    }
+    snake.display();
+  }
+}
+
+//=====================================================================================================================
 
 int findDirection(int startX, int startY, int endX, int endY) {
 
@@ -322,6 +324,7 @@ int calcManhattanDistance(int startX, int startY, int finX, int finY) { //calcul
   return abs(finX - startX) + abs(finY - startY);
 }
 
+//======================================================================================================================
 int findPath (Tile start, Tile end) {
   //println("Start: " + start);
   //println("End: " + end);
@@ -350,44 +353,3 @@ int findPath (Tile start, Tile end) {
   }
   return findPath(start.getParent(), end);
 }
-//}
-//1=north, 2=east, 3=south, 4=west
-/*        
- if(!tiles[startY+1][startX].isSnake()){ //tile is not occupied by snake
- if (tiles[startY+1][startX].isList() == 0){ //tile is not already in a list (open/closed)
- open.add(tiles[startY+1][startX]); //add the tile
- }else if (tiles[startY+1][startX].isList() == 1){ //tile is in open list
- if (open.get(open.indexOf(tiles[startY+1][startX])).getGval() < goldenTile.getGval()){ //if tile gVal < current gVal
- 
- tiles[startY+1][startX].changeList(true);
- }
- 
- 
- 
- 
- open.add(0,tmp);
- if(!tiles[startY+1][startX].isSnake() && !tiles[startY+1][startX].isList()){
- open.add(tiles[startY+1][startX]);
- tiles[startY+1][startX].changeList(true);
- }
- if(!tiles[startY-1][startX].isSnake() && !tiles[startY-1][startX].isList()){
- open.add(tiles[startY-1][startX]);
- tiles[startY-1][startX].changeList(true);
- }
- if(!tiles[startY][startX+1].isSnake() && !tiles[startY][startX+1].isList()){
- open.add(tiles[startY][startX+1]);
- tiles[startY][startX+1].changeList(true);
- }
- if(!tiles[startY][startX-1].isSnake() && !tiles[startY][startX-1].isList()){
- open.add(tiles[startY][startX-1]);
- tiles[startY][startX-1].changeList(true);
- }
- 
- closed.add(0,open.remove(0));
- 
- 
- //set parent of unit
- closed.get(0).setParent(open.get(minDistIndex));
- //remove unit with lowest f-value from open list and add to closed list
- closed.add(open.remove(minDistIndex));
- */

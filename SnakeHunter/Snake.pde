@@ -48,14 +48,13 @@ class Snake {
     //units.get(0).setDir(dir);
     //int dir = units.get(0).getDir();
 
-    switch(dir) {
-    case 1: 
+    if(dir==1){ 
       units.get(0).setYcor(units.get(0).getYcor() - 1);
-    case 2: 
+    }else if(dir==2){ 
       units.get(0).setXcor(units.get(0).getXcor() + 1);
-    case 3: 
+    }else if(dir==3){ 
       units.get(0).setYcor(units.get(0).getYcor() + 1);
-    case 4: 
+    }else if(dir==4){ 
       units.get(0).setXcor(units.get(0).getXcor() - 1);
     }
   }
