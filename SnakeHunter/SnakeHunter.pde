@@ -188,7 +188,7 @@ void keyPressed() {
     }
   } else if (key == ' ') {
     if (millis() - bulletTime >= 250) {
-      Bullet bigBullet = new Bullet(bigGun.getXcor(), bigGun.getYcor() - 20);
+      Bullet bigBullet = new Bullet(bigGun.getXcor(), bigGun.getYcor() - 1);
       bullets.add(bigBullet);
       bulletTime = millis();
     }
@@ -300,14 +300,12 @@ int findDirection(int startX, int startY, int endX, int endY) {
 
         if (closed.contains(neighbors.get(i))) { } //closed neighbors
 
-        if(!neighbors.get(i).equals(tiles[startY][startX]){
-          if (!open.contains(neighbors.get(i))) { //neighbor not in open list
+        else if (!open.contains(neighbors.get(i))) { //neighbor not in open list
             neighbors.get(i).setParent(goldenTile); //sets goldenValue as parent
             neighbors.get(i).setGval(temp_g_score);
             neighbors.get(i).setFval(neighbors.get(i).getGval() + calcManhattanDistance(neighbors.get(i).getXcor(), neighbors.get(i).getYcor(), endX, endY));
             //neighbors.get(i).changeList(1);
             open.add(neighbors.get(i));
-          }
         } 
         else if (open.contains(neighbors.get(i)) && temp_g_score < neighbors.get(i).getGval()) { //special cases if neighbor is in
           open.get(open.indexOf(neighbors.get(i))).setParent(goldenTile); //sets goldenValue as parent
@@ -328,26 +326,26 @@ int findPath (Tile start, Tile end) {
   //println("Start: " + start);
   //println("End: " + end);
   //println("Parent: " + start.getParent() +"\n");
-  if (start.getParent().equals(end)) {
-    if (start.getYcor() < 59) {
-      if (tiles[start.getYcor()+1][start.getXcor()].equals(end)) {
-        return 3; //go south
-      }
-    } 
-    if (start.getYcor() > 0) {
-      if (tiles[start.getYcor()-1][start.getXcor()].equals(end)) {
-        return 1; //go north
-      }
-    } 
-    if (start.getXcor() < 49) {
-      if (tiles[start.getYcor()][start.getXcor()+1].equals(end)) {
-        return 2; //go east
-      }
+  //if (start.getParent().equals(end)) {
+
+  if (start.getYcor() > 0) {
+    if (tiles[start.getYcor()-1][start.getXcor()].equals(end)) {
+      return 1; //go north
     }
-    if (start.getXcor() > 0) {
-      if (tiles[start.getYcor()][start.getXcor()-1].equals(end)) {
-        return 4; //go west
-      }
+  } 
+  if (start.getXcor() < 49) {
+    if (tiles[start.getYcor()][start.getXcor()+1].equals(end)) {
+      return 2; //go east
+    }
+  }
+  if (start.getYcor() < 59) {
+    if (tiles[start.getYcor()+1][start.getXcor()].equals(end)) {
+      return 3; //go south
+    }
+  } 
+  if (start.getXcor() > 0) {
+    if (tiles[start.getYcor()][start.getXcor()-1].equals(end)) {
+      return 4; //go west
     }
   }
   return findPath(start.getParent(), end);
