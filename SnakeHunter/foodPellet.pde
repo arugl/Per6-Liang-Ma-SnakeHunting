@@ -12,7 +12,7 @@ class FoodPellet {
     ellipseMode(CENTER);
     noStroke();
     fill(random(255),random(255),random(255));
-    ellipse(xcor,ycor,10,10);
+    ellipse(xcor*10,ycor*10,10,10);
   }
   
   void die(){
@@ -24,5 +24,11 @@ class FoodPellet {
   
   public int getXcor(){ return xcor; }
   public int getYcor(){ return ycor; }
+ 
+  String toString(){
+    String retStr = "";
+    retStr += "[xcor:" + xcor + "ycor:" + ycor + "]";
+    return retStr;
+  }
   
 }

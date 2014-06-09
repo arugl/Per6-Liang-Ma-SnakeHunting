@@ -8,8 +8,8 @@ class Snake {
 
   Snake(int len) { //first-run constructor
 
-    spd = 10;
-    units = new ArrayList();
+    //spd = 10;
+    units = new ArrayList<Unit>();
 
     int xcor = 25;
     int ycor = 30;
@@ -28,7 +28,7 @@ class Snake {
 
   Snake(ArrayList<Unit> units) {
     this.units = units;
-    spd = 10;
+    //spd = 10;
     Random rand = new Random(255);
     col = color(rand.nextInt(), rand.nextInt(), rand.nextInt());
     for (Unit n : units) {
@@ -40,8 +40,8 @@ class Snake {
 
     for (int i=units.size()-1; i>0; i--) { //alter pos of all units except head
       get(i).die();
-      get(i).setXcor(get(i).getPrev().getXcor());
-      get(i).setYcor(get(i).getPrev().getYcor());
+      get(i).setXcor(get(i-1).getXcor());
+      get(i).setYcor(get(i-1).getYcor());
     }
 
     units.get(0).die(); //throw exception later    
@@ -104,5 +104,14 @@ class Snake {
  Unit lastUnit(){
    return units.get(units.size()-1);
  } 
+ 
+ String toString(){
+   String toStr = "<Snake:";
+   for(int i=0;i<units.size();i++){
+     toStr += units.get(i).toString() + ",";
+   }
+   toStr += ">\n";
+   return toStr;
+ }
  
 }
