@@ -62,16 +62,7 @@ void draw() {
   rectMode(CORNERS);
   rect(0, height - 40, width, height);
 
-//RECALCULATING STATUS
-  for(int i=0;i<snakes.size();i++){ //alter all tiles that have snakes to display it
-    for(int j=0;j<snakes.get(i).getUnits().size();j++){
-      tiles[snakes.get(i).get(j).getYcor()][snakes.get(i).get(j).getXcor()].changeSnake(true);
-    }
-  }
-  
-  for(int i=0;i<food.size();i++){
-    tiles[food.get(i).getYcor()][food.get(i).getXcor()].changeFood(true);
-  }
+  recalculate();
 
   if (snakes.size()==1) { 
     maxFood = 1;
@@ -166,7 +157,7 @@ void keyPressed() {
     }
   } else if (key == ' ') {
     if (millis() - bulletTime >= 250) {
-      Bullet bigBullet = new Bullet(bigGun.getXcor(), bigGun.getYcor() - 1);
+      Bullet bigBullet = new Bullet(bigGun.getXcor(), bigGun.getYcor() - 10);
       bullets.add(bigBullet);
       bulletTime = millis();
     }
@@ -192,25 +183,40 @@ Tile getClosestFood(Tile n) {
   return tiles[ycor][xcor];
 }
 
+void recalculate(){ //recalculates values for snakes and food
+  //RECALCULATING STATUS
+  for(int i=0;i<snakes.size();i++){ //alter all tiles that have snakes to display it
+    for(int j=0;j<snakes.get(i).getUnits().size();j++){
+      tiles[snakes.get(i).get(j).getYcor()][snakes.get(i).get(j).getXcor()].changeSnake(true);
+    }
+  }
+  
+  for(int i=0;i<food.size();i++){
+    tiles[food.get(i).getYcor()][food.get(i).getXcor()].changeFood(true);
+  }
+}
+
 //=====================================================================================================================
 
 void snakeMovement() {
-  for (int i = 0; i < snakes.size (); i++) {
-    Snake snake = snakes.get(i);
-    if (millis() - moveTime >= 500) {
+  if (millis() - moveTime >= 500) {
+    for (int i = 0; i < snakes.size (); i++) {
+      Snake snake = snakes.get(i);
 
       Tile currLocation = tiles[snake.get(0).getYcor()][snake.get(0).getXcor()];
       Tile food = getClosestFood(currLocation);
       println("Current Location: " + currLocation);
       println("Target Location: " + food);
-      //println("Target Location Has Food: " + food.isFood());
       int dir = findDirection(currLocation.getXcor(), currLocation.getYcor(), food.getXcor(), food.getYcor());
       println("Direction: " + dir);
       snake.move(dir);
 
       moveTime = millis();
     }
-    snake.display();
+  }
+  recalculate();
+  for(Snake sn : snakes){
+    sn.display();
   }
 }
 
@@ -333,22 +339,22 @@ int findPath (Tile start, Tile end) {
 
   if (start.getYcor() > 0) {
     if (tiles[start.getYcor()-1][start.getXcor()].equals(end)) {
-      return 1; //go north
+      return 3; //go north
     }
   } 
   if (start.getXcor() < 49) {
     if (tiles[start.getYcor()][start.getXcor()+1].equals(end)) {
-      return 2; //go east
+      return 4; //go east
     }
   }
   if (start.getYcor() < 59) {
     if (tiles[start.getYcor()+1][start.getXcor()].equals(end)) {
-      return 3; //go south
+      return 1; //go south
     }
   } 
   if (start.getXcor() > 0) {
     if (tiles[start.getYcor()][start.getXcor()-1].equals(end)) {
-      return 4; //go west
+      return 2; //go west
     }
   }
   return findPath(start.getParent(), end);
