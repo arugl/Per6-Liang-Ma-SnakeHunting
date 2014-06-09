@@ -5,18 +5,18 @@ public class Bullet {
   color col = color(62);
 
   //Bullet() { } //?
-  
+
   Bullet(int xcor, int ycor) {
     spd = 10;
-    this.xcor = xcor / 10;
-    this.ycor = ycor / 10;
+    this.xcor = xcor;
+    this.ycor = ycor;
   }
 
   void display() {
     stroke(255);
     fill(col);
     rectMode(CENTER);
-    rect(xcor * 10, ycor * 10, 10, 10);
+    rect(xcor*10, ycor*10, 10, 10);
   }
 
   void flying() {
@@ -28,7 +28,7 @@ public class Bullet {
     rectMode(CENTER);
     stroke(backgroundColor);
     fill(backgroundColor);
-    rect(xcor * 10, ycor * 10, 10, 10);
+    rect(xcor*10, ycor*10, 10, 10);
   }
 
   int getXcor() { 

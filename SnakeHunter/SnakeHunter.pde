@@ -61,10 +61,6 @@ void draw() {
   fill(0);
   rectMode(CORNERS);
   rect(0, height - 40, width, height);
-  fill(color( 227, 204, 73));
-  rect(0, 0, 5, height);
-  rect(0, 0, width, 5);
-  rect(495, height, 600, 5);
 
 //RECALCULATING STATUS
   for(int i=0;i<snakes.size();i++){ //alter all tiles that have snakes to display it
@@ -106,12 +102,12 @@ void draw() {
 void bulletMovement() {
 
   for (int i=0; i<bullets.size (); i++) {
-    //tiles[bullets.get(i).getYcor()][bullets.get(i).getXcor()].changeBullet(false); //remove bullet from previous position tile
+    tiles[bullets.get(i).getYcor()][bullets.get(i).getXcor()].changeBullet(false); //remove bullet from previous position tile
     if (bullets.get(i).getYcor() < 0) {
       bullets.remove(i);
     } else {
       bullets.get(i).flying();
-      //tiles[bullets.get(i).getYcor()][bullets.get(i).getXcor()].changeBullet(true); //add bullet to new position tile
+      tiles[bullets.get(i).getYcor()][bullets.get(i).getXcor()].changeBullet(true); //add bullet to new position tile
       bullets.get(i).display();
     }
   }
@@ -170,7 +166,7 @@ void keyPressed() {
     }
   } else if (key == ' ') {
     if (millis() - bulletTime >= 250) {
-      Bullet bigBullet = new Bullet(bigGun.getXcor(), bigGun.getYcor() - 20);
+      Bullet bigBullet = new Bullet(bigGun.getXcor(), bigGun.getYcor() - 1);
       bullets.add(bigBullet);
       bulletTime = millis();
     }
