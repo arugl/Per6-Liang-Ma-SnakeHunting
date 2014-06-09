@@ -7,9 +7,9 @@ public class Bullet {
   //Bullet() { } //?
 
   Bullet(int xcor, int ycor) {
-    spd = 10;
-    this.xcor = xcor;
-    this.ycor = ycor;
+    spd = 1;
+    this.xcor = xcor / 10; //Had problems with the gun having whole coords and creating bullets with its coords mult. by 10
+    this.ycor = ycor / 10;
   }
 
   void display() {

@@ -61,6 +61,11 @@ void draw() {
   fill(0);
   rectMode(CORNERS);
   rect(0, height - 40, width, height);
+  fill(color( 227, 204, 73));
+  rect(0, 0, 5, height);
+  rect(0, 0, width, 5);
+  rect(495, height, 600, 5);
+
 
   recalculate();
 
@@ -93,12 +98,12 @@ void draw() {
 void bulletMovement() {
 
   for (int i=0; i<bullets.size (); i++) {
-    tiles[bullets.get(i).getYcor()][bullets.get(i).getXcor()].changeBullet(false); //remove bullet from previous position tile
+    //tiles[bullets.get(i).getYcor()][bullets.get(i).getXcor()].changeBullet(false); //remove bullet from previous position tile
     if (bullets.get(i).getYcor() < 0) {
       bullets.remove(i);
     } else {
       bullets.get(i).flying();
-      tiles[bullets.get(i).getYcor()][bullets.get(i).getXcor()].changeBullet(true); //add bullet to new position tile
+      //tiles[bullets.get(i).getYcor()][bullets.get(i).getXcor()].changeBullet(true); //add bullet to new position tile
       bullets.get(i).display();
     }
   }
@@ -106,15 +111,15 @@ void bulletMovement() {
 
 FoodPellet newFood() {
   Random stop = new Random();
-  int randX = stop.nextInt(50);
-  int randY = stop.nextInt(60);
+  int randX = stop.nextInt(49) + 1; //This is to ensure that x or y can't be 0, which would put it out of the gun's range.
+  int randY = stop.nextInt(59) + 1;
   println("RandX: " + randX);
   println("RandY: " + randY);
   Tile tmp = tiles[randY][randX];
 
   while (tmp.isSnake () || tmp.isFood()) {
-    randX = (int) stop.nextInt(50);
-    randY = (int) stop.nextInt(60);
+    randX = (int) stop.nextInt(49) + 1;
+    randY = (int) stop.nextInt(59) + 1;
     tmp = tiles[randY][randX];
   }
 
@@ -157,7 +162,7 @@ void keyPressed() {
     }
   } else if (key == ' ') {
     if (millis() - bulletTime >= 250) {
-      Bullet bigBullet = new Bullet(bigGun.getXcor(), bigGun.getYcor() - 10);
+      Bullet bigBullet = new Bullet(bigGun.getXcor(), bigGun.getYcor() - 20);
       bullets.add(bigBullet);
       bulletTime = millis();
     }

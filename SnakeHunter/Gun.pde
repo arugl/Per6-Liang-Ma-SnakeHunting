@@ -6,7 +6,7 @@ class Gun {
 
   Gun() {
     xspeed = 10;
-    xcor = 305;
+    xcor = 310; //Changed to 310 to align with bullets, snakes, meaning tiles.
     ycor = 620;
   }
 
@@ -20,16 +20,16 @@ class Gun {
   void moveLeft() {
     die();
     xcor = xcor - xspeed;
-    if (xcor < 5) {
-      xcor = width - 5;
+    if (xcor < 10) {
+      xcor = width - 10;
     }
   }
 
   void moveRight() {
     die();
     xcor = xcor + xspeed;
-    if (xcor > width - 5) {
-      xcor = 5;
+    if (xcor > width - 10) {
+      xcor = 10;
     }
   }
 
